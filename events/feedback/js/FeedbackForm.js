@@ -30,12 +30,15 @@ const FeedbackForm = props => {
 		}
 	];  	
 
-	let nameField, emailField, messageField, form;
+	let form;
 
 	function save2JSON(e) {
 		e.preventDefault();
-		
+
 		const salutationField = form.querySelector('input[type=radio]:checked'),
+			nameField = form.querySelector('#name'),
+			emailField = form.querySelector('#email'),
+			messageField = form.querySelector('#message'),
 			snacksField = form.querySelectorAll('input[type=checkbox]:checked'),
 			subjectField = form.querySelector('#subject');
 
@@ -52,71 +55,90 @@ const FeedbackForm = props => {
 	}
 
   	return (
-	  	<div ref={element => form = element}>
-		  	<form class="content__form contact-form" onSubmit={save2JSON}>
-			  <div class="testing">
-			    <p>Чем мы можем помочь?</p>
-			  </div>
-			  <div class="contact-form__input-group">
-			  	{salutationValues.map((obj) => {
-			  		return (
-				  		<span>
-				  			<input defaultChecked={obj.val === props.data.salutation} class="contact-form__input contact-form__input--radio" id={obj.id} name="salutation" type="radio" value={obj.val}/>
-				    		<label class="contact-form__label contact-form__label--radio" htmlFor={obj.id}>{obj.val}</label>
-				  		</span>
-				  	);
-			  	})}
-			  </div>
-			  <div class="contact-form__input-group">
-			    <label class="contact-form__label" htmlFor="name">Имя</label>
+	  	<form ref={element => form = element} className="content__form contact-form" onSubmit={save2JSON}>
+		  <div className="testing">
+		    <p>Чем мы можем помочь?</p>
+		  </div>
+		  <div className="contact-form__input-group">
+	  			<input 
+	  				defaultChecked={salutationValues[0].val === props.data.salutation} 
+	  				className="contact-form__input contact-form__input--radio" 
+	  				id={salutationValues[0].id} 
+	  				name="salutation" 
+	  				type="radio" 
+	  				value={salutationValues[0].val}/>
+	    		<label className="contact-form__label contact-form__label--radio" htmlFor={salutationValues[0].id}>{salutationValues[0].val}</label>
+	  			<input 
+	  				defaultChecked={salutationValues[1].val === props.data.salutation} 
+	  				className="contact-form__input contact-form__input--radio" 
+	  				id={salutationValues[1].id} 
+	  				name="salutation" 
+	  				type="radio" 
+	  				value={salutationValues[1].val}/>
+	    		<label className="contact-form__label contact-form__label--radio" htmlFor={salutationValues[1].id}>{salutationValues[1].val}</label>
+	  			<input 
+	  				defaultChecked={salutationValues[2].val === props.data.salutation} 
+	  				className="contact-form__input contact-form__input--radio" 
+	  				id={salutationValues[2].id} 
+	  				name="salutation" 
+	  				type="radio" 
+	  				value={salutationValues[2].val}/>
+	    		<label className="contact-form__label contact-form__label--radio" htmlFor={salutationValues[2].id}>{salutationValues[2].val}</label>
+		  </div>
+		  <div className="contact-form__input-group">
+		    <label className="contact-form__label" htmlFor="name">Имя</label>
+		    <input 
+				className="contact-form__input contact-form__input--text" 
+				id="name" 
+				name="name" 
+				type="text" 
+				defaultValue={props.data.name}/>
+		  </div>
+		  <div className="contact-form__input-group">
+		    <label className="contact-form__label" htmlFor="email">Адрес электронной почты</label>
+		    <input 
+		    	className="contact-form__input contact-form__input--email" 
+		    	id="email" 
+		    	name="email" 
+		    	type="email" 
+		    	defaultValue={props.data.email}/>
+		  </div>
+		  <div className="contact-form__input-group">
+		    <label className="contact-form__label" htmlFor="subject">Чем мы можем помочь?</label>
+		    <select className="contact-form__input contact-form__input--select" id="subject" name="subject">
+		      {subjectValues.map((val) => <option selected={val === props.data.subject} value={val}>{val}</option>)}
+		    </select>
+		  </div>
+		  <div className="contact-form__input-group">
+		    <label className="contact-form__label" htmlFor="message">Ваше сообщение</label>
+		    <textarea 
+		    	className="contact-form__input contact-form__input--textarea" 
+		    	id="message" 
+		    	name="message" 
+		    	rows="6" 
+		    	cols="65">{props.data.message}</textarea>
+		  </div>
+		  <div className="contact-form__input-group">
+		    <p className="contact-form__label--checkbox-group">Хочу получить:</p>
 			    <input 
-			    	ref={element => nameField = element}
-					class="contact-form__input contact-form__input--text" 
-					id="name" 
-					name="name" 
-					type="text" 
-					value={props.data.name}/>
-			  </div>
-			  <div class="contact-form__input-group">
-			    <label class="contact-form__label" htmlFor="email">Адрес электронной почты</label>
+			    	defaultChecked={props.data.snacks.includes(snacksValues[0].val)} 
+			    	className="contact-form__input contact-form__input--checkbox" 
+			    	id={snacksValues[0].id} 
+			    	name="snacks" 
+			    	type="checkbox" 
+			    	value={snacksValues[0].val}/>
+			    <label className="contact-form__label contact-form__label--checkbox" htmlFor={snacksValues[0].id}>{snacksValues[0].text}</label>
 			    <input 
-			    	ref={element => emailField = element}
-			    	class="contact-form__input contact-form__input--email" 
-			    	id="email" 
-			    	name="email" 
-			    	type="email" 
-			    	value={props.data.email}/>
-			  </div>
-			  <div class="contact-form__input-group">
-			    <label class="contact-form__label" htmlFor="subject">Чем мы можем помочь?</label>
-			    <select class="contact-form__input contact-form__input--select" id="subject" name="subject">
-			      {subjectValues.map((val) => <option selected={val === props.data.subject}>{val}</option>)}
-			    </select>
-			  </div>
-			  <div class="contact-form__input-group">
-			    <label class="contact-form__label" htmlFor="message">Ваше сообщение</label>
-			    <textarea 
-			    	ref={element => messageField = element}
-			    	class="contact-form__input contact-form__input--textarea" 
-			    	id="message" 
-			    	name="message" 
-			    	rows="6" 
-			    	cols="65">{props.data.message}</textarea>
-			  </div>
-			  <div class="contact-form__input-group">
-			    <p class="contact-form__label--checkbox-group">Хочу получить:</p>
-			  	{snacksValues.map((obj) => {
-			  		return (
-				  		<span>
-						    <input defaultChecked={props.data.snacks.includes(obj.val)} class="contact-form__input contact-form__input--checkbox" id={obj.id} name="snacks" type="checkbox" value={obj.val}/>
-						    <label class="contact-form__label contact-form__label--checkbox" htmlFor={obj.id}>{obj.text}</label>
-				  		</span>
-				  	);
-			  	})}
-			  </div>
-			  <button class="contact-form__button" type="submit">Отправить сообщение!</button>
-			  <output id="result" />
-			</form>
-		</div>
+			    	defaultChecked={props.data.snacks.includes(snacksValues[1].val)} 
+			    	className="contact-form__input contact-form__input--checkbox" 
+			    	id={snacksValues[1].id} 
+			    	name="snacks" 
+			    	type="checkbox" 
+			    	value={snacksValues[1].val}/>
+			    <label className="contact-form__label contact-form__label--checkbox" htmlFor={snacksValues[1].id}>{snacksValues[1].text}</label>
+		  </div>
+		  <button className="contact-form__button" type="submit">Отправить сообщение!</button>
+		  <output id="result" />
+		</form>
 	);
 };

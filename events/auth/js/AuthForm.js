@@ -10,25 +10,24 @@ const AuthForm = props => {
 		e.currentTarget.value = e.currentTarget.value.replace(/[^a-zA-Z0-9@\.,_-]/ig, '');
 	}
 
-	let nameField, emailField, passField;
+	let form;
 
 	function submitForm(e) {
 		e.preventDefault();
 
 		if (props.onAuth && typeof(props.onAuth) === 'function') {
 			props.onAuth({
-				name: nameField.value,
-				email: emailField.value,
-				pass: passField.value
+				name: form.querySelector('input[type="text"]').value,
+				email: form.querySelector('input[type="email"]').value,
+				password: form.querySelector('input[type="password"]').value
 			});
 		}
 	}
 
 	return (
-		<form onSubmit={submitForm} className="ModalForm" action="/404/auth/" method="POST">
+		<form ref={element => form = element} onSubmit={submitForm} className="ModalForm" action="/404/auth/" method="POST">
 		  <div className="Input">
 		    <input 
-		    	ref={element => nameField = element}		    	
 		    	required 
 		    	type="text" 
 		    	placeholder="Имя" />
@@ -36,7 +35,6 @@ const AuthForm = props => {
 		  </div>
 		  <div className="Input">
 		    <input 
-		    	ref={element => emailField = element}
 		    	type="email" 
 		    	onChange={changeEmail} 
 		    	placeholder="Электронная почта" />
@@ -44,10 +42,9 @@ const AuthForm = props => {
 		  </div>
 		  <div className="Input">
 		    <input 
-		    	ref={element => passField = element}
 		    	required 
-		    	onChange={changePass} 
 		    	type="password" 
+		    	onChange={changePass} 
 		    	placeholder="Пароль" />
 		    <label></label>
 		  </div>
