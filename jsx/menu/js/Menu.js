@@ -1,21 +1,14 @@
-function Menu({items, opened}) {
-	if (opened) {
-		return (
-			<div className="menu menu-open">
-			  <div className="menu-toggle"><span></span></div>
-			  <nav>
-			    <ul>
-			      <li><a href="#home">Главная страница</a></li>
-			      <li><a href="#about">О компании</a></li>
-			      <li><a href="#contact">Контакты</a></li>
-			    </ul>
-			  </nav>
-			</div>
-		);
-	}
+function Menu({items, opened=false}) {
 	return (
-		<div className="menu">
+	  	<div className={opened ? "menu menu-open" : "menu"}>
 		  <div className="menu-toggle"><span></span></div>
+		  	{opened && (
+				<nav>
+					<ul>
+						{items.map((item) => <li><a href={item.href}>{item.title}</a></li>)}
+					</ul>
+				</nav>
+			)}
 		</div>
-	);	
+	);
 }
