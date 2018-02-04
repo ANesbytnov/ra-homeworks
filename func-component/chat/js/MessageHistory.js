@@ -1,8 +1,8 @@
 'use strict';
 
 function MessageHistory({list}) {
-	const messages = list.map(function(item) {
-		let NeedComp = null;
+	const messages = list.map((item) => {
+		let NeedComp;
 		switch (item.type) {
 			case 'message': 
 				NeedComp = Message;
@@ -13,6 +13,8 @@ function MessageHistory({list}) {
 			case 'typing':
 				NeedComp = Typing;
 				break;
+			default:
+				return null;
 		}
 		return <NeedComp from={item.from} message={item} />;
 	});

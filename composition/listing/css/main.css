@@ -96,7 +96,7 @@ figure.snip1171 a {
   position: absolute;
   bottom: 0;
   right: 0;
-  background-color: #000000;
+  /* background-color: #000000; */
   line-height: 40px;
   padding: 0 10px;
   color: #ffffff;
